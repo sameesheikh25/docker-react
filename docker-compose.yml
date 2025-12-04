@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  react-app:
+    build:
+      context: . # Path to directory that contains all the files for our project
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app  # Mounting the current directory to /app in the container. For dev with volumes, you can remove COPY . . but keep the package.json copy for dependency installation. 
+  test-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
