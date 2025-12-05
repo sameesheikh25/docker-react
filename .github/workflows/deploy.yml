@@ -1,0 +1,14 @@
+name: Docker react
+
+on: 
+  push:
+    branches:
+      -main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker build -t samee/react-test -f Dockerfile.dev .
+      - run: docker run -e CI=true samee/react-test npm run test
